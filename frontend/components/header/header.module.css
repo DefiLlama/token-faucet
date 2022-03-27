@@ -1,14 +1,13 @@
 .headerContainer,
 .headerContainerDark {
   max-width: 1400px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, auto);
-  gap: 20px;
   position: sticky;
   top: 0;
   padding: 24px 20px 48px;
   z-index: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
 }
 
 .headerContainer {
@@ -20,28 +19,18 @@
 }
 
 .filterRow {
-  grid-column: 1 / -1;
-  grid-row: 3 / 4;
-}
-
-.filterRow,
-.accountButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-}
-
-.accountButton {
-  grid-column: 1 / -1;
-  grid-row: 2 / 3;
+  flex: 1;
 }
 
 .switchContainer {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  grid-column: 1 / -1;
+  justify-content: space-between;
+}
+
+.filterRow,
+.accountButton {
+  height: 40px;
 }
 
 .label {
@@ -100,19 +89,8 @@
   .headerContainer,
   .headerContainerDark {
     padding: 24px 48px 48px;
-  }
-
-  .accountButton,
-  .switchContainer {
-    grid-row: 1 / 2;
-  }
-
-  .switchContainer {
-    grid-column: 1 / 3;
-  }
-
-  .accountButton {
-    grid-column: 3 / 5;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
@@ -122,24 +100,6 @@
     padding: 24px 48px 48px;
     gap: 4px;
   }
-
-  .filterRow,
-  .switchContainer,
-  .accountButton {
-    grid-row: 1 / 2;
-  }
-
-  .filterRow {
-    grid-column: 1 / 3;
-  }
-
-  .switchContainer {
-    grid-column: 3 / 4;
-  }
-
-  .accountButton {
-    grid-column: 4 / 5;
-  }
 }
 
 @media (min-width: 1200px) {
@@ -148,19 +108,6 @@
     padding: 24px 48px 48px;
     gap: 20px;
   }
-
-  .filterRow {
-    grid-column: 1 / -1;
-    grid-row: 2 / 3;
-  }
-
-  .switchContainer {
-    grid-column: 1 / 3;
-  }
-
-  .accountButton {
-    grid-column: 3 / 5;
-  }
 }
 
 @media screen and (min-width: 1500px) {
@@ -168,23 +115,5 @@
   .headerContainerDark {
     padding: 24px 20px 48px;
     gap: 4px;
-  }
-
-  .filterRow,
-  .switchContainer,
-  .accountButton {
-    grid-row: 1 / 2;
-  }
-
-  .filterRow {
-    grid-column: 1 / 3;
-  }
-
-  .switchContainer {
-    grid-column: 3 / 4;
-  }
-
-  .accountButton {
-    grid-column: 4 / 5;
   }
 }
