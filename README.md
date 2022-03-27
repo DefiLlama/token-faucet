@@ -13,6 +13,9 @@ This project is our attempt at simplifying testnet development by creating a sim
 
 There's been some projects that built generic tokens in the past, but their main issues is that they only deployed a single token and they were griefable by anyone that minted tokens up to the uint256 limit, which would make further mints break due to overflow. This project enforces a limit to each mint so you can share the contracts with testers and don't have to worry about anyone griefing them.
 
+## Usecase example
+![](./example.png)
+
 ----
 
 ## Development
