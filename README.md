@@ -17,10 +17,18 @@ There's been some projects that built generic tokens in the past, but their main
 
 ## Development
 
+### Contracts
+Anyone can deploy these to any EVM network (at the same address!), so feel free to deploy them everywhere
 ```shell
 npm test
 npx hardhat coverage
 npx hardhat --network rinkeby deploy
 npx hardhat --network rinkeby etherscan-verify
 npx hardhat verify --network rinkeby DEPLOYED_CONTRACT_ADDRESS
+```
+
+### Frontend
+```shell
+yarn # install packages
+yarn dev # run local server for development
 ```
