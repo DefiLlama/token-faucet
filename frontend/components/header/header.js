@@ -9,7 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { CONNECT_WALLET, TRY_CONNECT_WALLET, ACCOUNT_CONFIGURED } from '../../stores/constants';
 
-import stores, { useSearch, useTestnets } from '../../stores';
+import stores, { useSearch } from '../../stores';
 import { formatAddress, getProvider, useDebounce } from '../../utils';
 
 import classes from './header.module.css';
@@ -118,16 +118,6 @@ const searchTheme = createTheme({
   },
 });
 
-const TestnetSwitch = withStyles({
-  switchBase: {
-    '&$checked': {
-      color: '#2f80ed',
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
-
 function Header(props) {
   const [account, setAccount] = useState(null);
   const [darkMode, setDarkMode] = useState(props.theme.palette.type === 'dark' ? true : false);
@@ -177,9 +167,7 @@ function Header(props) {
     setDarkMode(localStorageDarkMode ? localStorageDarkMode === 'dark' : false);
   }, []);
 
-  const testnets = useTestnets((state) => state.testnets);
   const handleSearch = useSearch((state) => state.handleSearch);
-  const toggleTestnets = useTestnets((state) => state.toggleTestnets);
 
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -222,30 +210,27 @@ function Header(props) {
       </div>
 
       <div className={classes.switchContainer}>
-        <div className={classes.themeSelectContainer}>
-          <StyledSwitch
-            icon={<Brightness2Icon className={classes.switchIcon} />}
-            checkedIcon={<WbSunnyOutlinedIcon className={classes.switchIcon} />}
-            checked={darkMode}
-            onChange={handleToggleChange}
-          />
-        </div>
+        <StyledSwitch
+          icon={<Brightness2Icon className={classes.switchIcon} />}
+          checkedIcon={<WbSunnyOutlinedIcon className={classes.switchIcon} />}
+          checked={darkMode}
+          onChange={handleToggleChange}
+        />
+        <Button
+          disableElevation
+          className={classes.accountButton}
+          variant="contained"
+          color="secondary"
+          onClick={onAddressClicked}
+        >
+          {account && account.address && (
+            <div className={`${classes.accountIcon} ${classes[renderProviderLogo()]}`}></div>
+          )}
+          <Typography variant="h5">
+            {account && account.address ? formatAddress(account.address) : 'Connect Wallet'}
+          </Typography>
+        </Button>
       </div>
-
-      <Button
-        disableElevation
-        className={classes.accountButton}
-        variant="contained"
-        color="secondary"
-        onClick={onAddressClicked}
-      >
-        {account && account.address && (
-          <div className={`${classes.accountIcon} ${classes[renderProviderLogo()]}`}></div>
-        )}
-        <Typography variant="h5">
-          {account && account.address ? formatAddress(account.address) : 'Connect Wallet'}
-        </Typography>
-      </Button>
     </div>
   );
 }
