@@ -183,30 +183,32 @@ function Header(props) {
   return (
     <div className={props.theme.palette.type === 'dark' ? classes.headerContainerDark : classes.headerContainer}>
       <div className={classes.filterRow}>
-        <ThemeProvider theme={searchTheme}>
-          <Paper className={classes.searchPaper}>
-            <TextField
-              fullWidth
-              className={classes.searchContainer}
-              variant="outlined"
-              placeholder="DAI, WBTC, ..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <SearchIcon fontSize="small" />
-                  </InputAdornment>
-                ),
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Typography className={classes.searchInputAdnornment}>Search Tokens</Typography>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Paper>
-        </ThemeProvider>
+        {props.searchEnabled &&
+          <ThemeProvider theme={searchTheme}>
+            <Paper className={classes.searchPaper}>
+              <TextField
+                fullWidth
+                className={classes.searchContainer}
+                variant="outlined"
+                placeholder="DAI, WBTC, ..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <SearchIcon fontSize="small" />
+                    </InputAdornment>
+                  ),
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Typography className={classes.searchInputAdnornment}>Search Tokens</Typography>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Paper>
+          </ThemeProvider>
+        }
       </div>
 
       <div className={classes.switchContainer}>
