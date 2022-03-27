@@ -23,7 +23,10 @@ async function mint(address) {
 }
 
 const chainIdToExplorer = {
-  4: "https://rinkeby.etherscan.io/address"
+  3: "https://ropsten.etherscan.io/address",
+  4: "https://rinkeby.etherscan.io/address",
+  5: "https://goerli.etherscan.io/address",
+  42: "https://kovan.etherscan.io/address",
 }
 
 async function getChainId() {
