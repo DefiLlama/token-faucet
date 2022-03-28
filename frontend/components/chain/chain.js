@@ -8,8 +8,20 @@ import { addToNetwork, renderProviderText } from '../../utils';
 import Link from 'next/link';
 import { ethers } from "ethers";
 
+const avaxTokens = {
+  "0x3861e9F29fcAFF738906c7a3a495583eE7Ca4C18": "0x68b56283f6C6AC75489B63D09288Dfa2bea104A1",
+  "0x332C7aC34580dfEF553B7726549cEc7015C4B39b": "0x36861654d8E5e0a641085603a8E7cb88E5419d31",
+  "0x0aCBd07e458F228d4869066b998a0F55F36537B2": "0x8Cf18401B5cC31176bE8F9d6f586a64506B583F1",
+  "0xaFb85F66FC8ad94805b586BE06dAc02876a0a5E5": "0xAF64a37533E76A2Ff19Dda45806c157037A30FAd",
+  "0x58d7ccbE88Fe805665eB0b6c219F2c27D351E649": "0x330f5B4784100d8eD4DeFb8D80C411BDA435205C"
+}
+
 async function mint(address) {
   const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  const { chainId } = await provider.getNetwork()
+  if(chainId === 43113){
+    address = avaxTokens[address];
+  }
   const signer = provider.getSigner();
   const contract = new ethers.Contract(
     address,

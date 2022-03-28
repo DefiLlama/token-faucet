@@ -29,8 +29,21 @@ function Input({term, setTerm, title, placeholder}){
 async function create(name, symbol, decimals, limit){
   const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
   const signer = provider.getSigner();
+  let signerAddress;
+  try{
+    signerAddress = await signer.getAddress()
+  } catch(e){
+      window.alert("Connect wallet first!")
+      throw e
+  }
+
+  let factoryAddress = "0x806720a305F100F08A48dC3E663C223A378Fe9F9"
+  const { chainId } = await provider.getNetwork()
+  if(chainId === 43113){
+    factoryAddress = "0x4dDFc224e5DA184dC458769491cb2F17E37567B7"
+  }
   const contract = new ethers.Contract(
-    "0x806720a305F100F08A48dC3E663C223A378Fe9F9",
+    factoryAddress,
     [
       "function createToken(string memory _name, string memory _symbol, uint _limit, uint8 _decimals) external returns (address tokenContract)",
       "function getTokenByParameters(address _creator, string memory _name, string memory _symbol, uint _limit, uint8 _decimals) external view returns(address predictedAddress, bool isDeployed)"
@@ -38,13 +51,6 @@ async function create(name, symbol, decimals, limit){
     signer
   )
   const limitWithDecimals = ethers.BigNumber.from(10).pow(decimals).mul(limit)
-  let signerAddress
-  try{
-    signerAddress = await signer.getAddress()
-  } catch(e){
-      window.alert("Connect wallet first!")
-      throw e
-  }
   const token = await contract.getTokenByParameters(signerAddress, name, symbol, limitWithDecimals, decimals)
   await contract.createToken(name, symbol, limitWithDecimals, decimals);
   window.alert(`address of your token is ${token.predictedAddress}`)
