@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
+import React, { useState, useEffect, useMemo } from 'react';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import SnackbarController from '../components/snackbar';
@@ -20,13 +20,15 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
-  const [themeConfig, setThemeConfig] = useState(lightTheme);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const router = useRouter();
 
   const changeTheme = (dark) => {
-    setThemeConfig(dark ? darkTheme : lightTheme);
+    setIsDarkMode(dark ? true : false);
     localStorage.setItem('yearn.finance-dark-mode', dark ? 'dark' : 'light');
   };
+  
+  const Theme = useMemo(() => createTheme(isDarkMode ? darkTheme : lightTheme), [isDarkMode]);
 
   useEffect(function () {
     const localStorageDarkMode = window.localStorage.getItem('yearn.finance-dark-mode');
@@ -57,7 +59,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={themeConfig}>
+      <ThemeProvider theme={Theme}>
         <CssBaseline />
         <Component {...pageProps} changeTheme={changeTheme} />
         <SnackbarController />

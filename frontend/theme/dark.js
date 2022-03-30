@@ -30,7 +30,8 @@ const theme = createTheme({
     MuiInputBase: {
       ...coreTheme.overrides.MuiInputBase,
       root: {
-        background: "#fff"
+        background: "#fff",
+		color: '#000'
       }
     },
     MuiOutlinedInput: {

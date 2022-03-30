@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 import { useSearch } from '../stores';
 import Chain from '../components/chain'
 
-function Home() {
+function Home({changeTheme}) {
   const search = useSearch((state) => state.search);
 
   const tokens = [
@@ -16,7 +16,7 @@ function Home() {
   ]
 
   return (
-    <Layout>
+    <Layout changeTheme={changeTheme}>
       {(search === ''
         ? tokens
         : tokens.filter((token) => {
