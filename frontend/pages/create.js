@@ -56,13 +56,13 @@ async function create(name, symbol, decimals, limit){
   window.alert(`address of your token is ${token.predictedAddress}`)
 }
 
-function Home() {
+function Home({changeTheme}) {
   const [name, setName] = useState("")
   const [symbol, setSymbol] = useState("")
   const [decimals, setDecimals] = useState("")
   const [limit, setLimit] = useState("")
   return (
-    <Layout searchEnabled={false}>
+    <Layout changeTheme={changeTheme} searchEnabled={false}>
         <div>
         {[
             [symbol, setSymbol, "Symbol", "DAI, WBTC, ..."],
