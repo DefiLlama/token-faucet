@@ -40,8 +40,8 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    Fathom.load('TKCNGGEZ', {
-      includedDomains: ['chainlist.defillama.com', 'chainlist.org'],
+    Fathom.load('VRYAZFWG', {
+      includedDomains: ['token-faucet.defillama.com'],
       url: 'https://surprising-powerful.llama.fi/script.js',
     });
 
